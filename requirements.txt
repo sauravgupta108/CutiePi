@@ -1,0 +1,4 @@
+cryptography == 2.7
+paho-mqtt == 1.4.0
+PyBluez == 0.22
+RPi.GPIO == 0.7.0

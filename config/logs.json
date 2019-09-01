@@ -1,0 +1,16 @@
+{
+    "LOG_APP_RUN": "appRun.log",
+    "LOG_MQTT_PUB": "mqtt/signal_tx.log",
+    "LOG_MQTT_SUB": "mqtt/signal_rx.log",
+    "LOG_BT_TX": "bluetooth/signal_tx.log",
+    "LOG_BT_RX": "bluetooth/signal_rx.log",
+    "LOG_RF433_TX": "rf433/signal_tx.log",
+    "LOG_RF433_RX": "rf433/signal_rx.log",
+    "LOG_HW_TX": "hardware/signal_tx.log",
+    "LOG_HW_RX": "hardware/signal_rx.log",
+    "LOG_LCD": "monitor/lcd.log",
+    "LOG_7SEGMENT": "monitor/seven_seg.log",
+    "LOG_LEDS": "monitor/leds.log",
+    "LOG_EN_DCR": "etc/encrypt_decrypt.log",
+    "LOG_CENTER": "center/transition.log"
+}
