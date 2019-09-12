@@ -14,6 +14,7 @@ env["CONFIG_DIR"] = "/opt/app/CutiePi/code/config"
 
 # MQTT Broker configurations
 env["MQTT_HOST"] = "192.168.2.130"
+env["MQTT_PORT"] = 1883
 env["MQTT_KEEPALIVE"] = 60
 env["MQTT_USERNAME"] = "tech"
 env["MQTT_PASSWORD"] = "mahindra"

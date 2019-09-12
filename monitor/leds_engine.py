@@ -4,3 +4,8 @@
 """
 This module enables manipulating LEDs attached on the board.
 """
+
+
+class Led:
+    def __init__(self):
+        pass
