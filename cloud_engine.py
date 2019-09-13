@@ -17,6 +17,10 @@ class CloudClient(Thread):
     """
 
     def __init__(self, name, mode):
+        """
+        :param name: Name of client
+        :param mode: Type of client "SEND" or "RECEIVE
+        """
         import inspect
         from paho.mqtt import client as mqtt
         from libraries.mqtt_engine import MqttClient
@@ -95,10 +99,31 @@ class CloudSignal:
         self.__cloud_client = None
 
     def transmit_signal(self, signal):
+        """
+        It encrypts the Signal and then transmit over a respective channel.
+        :param signal: signal to transmit
+        :return: None
+        """
         if not signal:
             raise ValueError("Invalid signal inputted.")
-        # Encrypt Signal and then transmit
+
+        from helper import encrypt_signal_for_cloud as encrypt
         self.__cloud_client = CloudClient(name="Cloud_Tx", mode="SEND")
+        self.__cloud_client.transmit(encrypt(signal))
 
     def start_reception(self):
+        """
+        This starts the reception of cloud signal on decided channel and
+        starts a respective thread.
+        :return: None
+        """
         self.__cloud_client = CloudClient(name="Cloud_Tx", mode="RECEIVE")
+        self.__cloud_client.receive()
+
+    def decode_received_signal(self, signal):
+        """
+        It decodes the signal received from cloud and send for further processing to center.py.
+        :param signal: Signal received from cloud
+        :return: decoded signal.
+        """
+        pass

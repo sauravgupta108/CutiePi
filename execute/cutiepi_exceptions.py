@@ -39,3 +39,13 @@ class CloudConnectionError(CutiePiError):
 class InvalidObjectCreation(CutiePiError):
     """Raised when object is created not from intended place."""
     pass
+
+
+class EncryptionError(CutiePiError):
+    """Raised when any error occurred during encrypting signal."""
+    pass
+
+
+class DecryptionError(CutiePiError):
+    """Raised when any error occurred during decrypting signal."""
+    pass
