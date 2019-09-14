@@ -6,5 +6,6 @@ This module enables manipulating LEDs attached on the board.
 """
 
 
-class LED:
-    pass
+class Led:
+    def __init__(self):
+        pass

@@ -7,4 +7,11 @@ With the help of this we can display data on the Seven Segment Display.
 
 
 class SevenSegment:
-    pass
+    def __init__(self):
+        pass
+
+    def select_first(self):
+        pass
+
+    def select_second(self):
+        pass

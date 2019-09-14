@@ -14,10 +14,11 @@ env["CONFIG_DIR"] = "/opt/app/CutiePi/code/config"
 
 # MQTT Broker configurations
 env["MQTT_HOST"] = "192.168.2.130"
-env["MQTT_KEEPALIVE"] = "60"
+env["MQTT_PORT"] = 1883
+env["MQTT_KEEPALIVE"] = 60
 env["MQTT_USERNAME"] = "tech"
 env["MQTT_PASSWORD"] = "mahindra"
-env["MQTT_QOS"] = "0"
+env["MQTT_QOS"] = 0
 
 # MQTT Signal Configurations
 env["MQTT_SOURCE"] = "smacty_j>6@9P~B"
@@ -28,10 +29,10 @@ env["MQTT_RECEPTION_CHANNEL"] = "rpi_broker_rx"
 # Bluetooth Device Configurations (SrNo_type_property)
 env["A_HC05_NAME"] = "HC-05"
 env["A_HC05_DEVICE_ID"] = "98:D3:36:80:F3:72"
-env["A_HC05_PORT"] = "1"
+env["A_HC05_PORT"] = 1
 
 # Bluetooth Signal Configurations
-env["A_HC05_SIGNAL_LEN"] = "15"
+env["A_HC05_SIGNAL_LEN"] = 15
 env["A_HC05_SIGNAL_PRE"] = "zSi3U"
 
 # Secret Key (use for encryption and decryption)
