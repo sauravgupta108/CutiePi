@@ -4,3 +4,7 @@
 """
 This module enables manipulating LEDs attached on the board.
 """
+
+
+class LED:
+    pass

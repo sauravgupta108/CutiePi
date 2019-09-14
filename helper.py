@@ -5,3 +5,6 @@
 Helper Module. Main functionality includes encrypting/decrypting messages for MQTT Broker, logging the events etc.
 """
 
+
+def get_logger():
+    pass
