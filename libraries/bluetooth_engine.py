@@ -4,4 +4,3 @@
 """
 This file provides various methods which can be used to harness the capability of Bluetooth.
 """
-

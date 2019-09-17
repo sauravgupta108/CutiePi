@@ -26,3 +26,8 @@ def decrypt_signal_from_cloud(encrypted_signal):
         raise DecryptionError("Invalid signal type received. Can not decrypt")
 
     return Fernet(env["SECRET_KEY"]).decrypt(encrypted_signal).decode()
+
+
+# Decode signal from hardware
+def decode_hardware_signal(encoded_signal):
+    pass

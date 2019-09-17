@@ -26,10 +26,12 @@ class CloudClient(Thread):
         from libraries.mqtt_engine import MqttClient
         from execute.cutiepi_exceptions import InvalidObjectCreation
 
-        # Get class name of caller method
-        # For python 3.5+
-        # inspect.stack() : A list of named tuples FrameInfo(frame, filename, lineno, function, code_context, index)
-        # inspect.stack()[1][0]: Frame object of caller.
+        '''
+        Get class name of caller method
+        For python 3.5+
+        inspect.stack() : A list of named tuples FrameInfo(frame, filename, lineno, function, code_context, index)
+        inspect.stack()[1][0]: Frame object of caller.
+        '''
 
         caller_frame_info = inspect.stack()[1]
         caller_id = caller_frame_info[0].f_locals['self'].__class__.__name__ + "." + caller_frame_info[3]
@@ -37,7 +39,6 @@ class CloudClient(Thread):
             # TODO: Need to think some alternative to hard coding the caller's <class>.<method> value.
             raise InvalidObjectCreation("Can not create object of class.")
 
-        Thread.__init__(self)
         self.__CLOUD_CLIENT = MqttClient(mqtt.Client(client_id=name))
         self.__signal = None
         self.__channel = None
@@ -46,6 +47,8 @@ class CloudClient(Thread):
             raise ValueError("Invalid Mode. Mode should be 'SEND' or 'RECEIVE'.")
         else:
             self.__client_type = mode
+
+        Thread.__init__(self)
 
     def __set_channel(self):
         from os import environ as env
@@ -61,8 +64,9 @@ class CloudClient(Thread):
 
         Thread.start(self)
 
-    def receive(self):
+    def receive(self, reception_queue):
         self.__set_channel()
+        self.__CLOUD_CLIENT.set_output_queue(reception_queue)
         Thread.start(self)
 
     def run(self):
@@ -111,19 +115,12 @@ class CloudSignal:
         self.__cloud_client = CloudClient(name="Cloud_Tx", mode="SEND")
         self.__cloud_client.transmit(encrypt(signal))
 
-    def start_reception(self):
+    def start_reception(self, output_queue):
         """
         This starts the reception of cloud signal on decided channel and
         starts a respective thread.
+        :param output_queue: multiprocessing.Queue object, where to put messages after reception.
         :return: None
         """
         self.__cloud_client = CloudClient(name="Cloud_Tx", mode="RECEIVE")
-        self.__cloud_client.receive()
-
-    def decode_received_signal(self, signal):
-        """
-        It decodes the signal received from cloud and send for further processing to center.py.
-        :param signal: Signal received from cloud
-        :return: decoded signal.
-        """
-        pass
+        self.__cloud_client.receive(output_queue)

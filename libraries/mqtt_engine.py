@@ -24,6 +24,10 @@ class MqttClient:
         self.__sub_result = False
         self.__sub_msgs = []
         self.__qos = 0
+        self.__output_queue = None
+
+    def set_output_queue(self, output_queue):
+        self.__output_queue = output_queue
 
     def __on_connect(self, client, userdata, flags, rc):
         if rc != 0:
@@ -45,7 +49,19 @@ class MqttClient:
         self.__sub_result = True
 
     def __on_message(self, client, userdata, message):
+        """
+        It puts the received messages onto output_queue.
+        :param message: Message received from Broker.
+        :return: None
+        """
         self.__sub_msgs.append(str(message.payload))
+        signal_received = {
+            "message": message.payload.decode(),
+            "protocol": "MQTT",
+            "source_type": "Remote_MQTT_Broker"
+        }
+        if self.__output_queue:
+            self.__output_queue.put(signal_received)
 
     def __connect_to_cloud(self):
         """
@@ -67,7 +83,7 @@ class MqttClient:
                 int(os.environ['MQTT_PORT']),
                 int(os.environ['MQTT_KEEPALIVE'])
             )
-        except Exception as e:
+        except:
             raise CloudConnectionError("MQTT Broker connection failed.")
 
         time.sleep(0.2)
