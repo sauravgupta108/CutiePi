@@ -9,6 +9,8 @@ MQTT broker.
 
 from threading import Thread
 
+from execute.cutiepi_exceptions import CloudConnectionError
+
 
 class CloudClient(Thread):
     """
@@ -72,13 +74,21 @@ class CloudClient(Thread):
     def run(self):
         if self.__client_type == "SEND":
             # This part runs the mqtt client (Thread) as Publisher (Transmitter).
-            self.__CLOUD_CLIENT.transmit_signal(self.__channel, self.__signal)
+            try:
+                self.__CLOUD_CLIENT.transmit_signal(self.__channel, self.__signal)
+            except CloudConnectionError:
+                # TODO: Log error while transmitting signal
+                self.disconnect()
 
         elif self.__client_type == "RECEIVE":
             # This part runs the mqtt client (Thread) as Subscriber (Receptor).
-            self.__CLOUD_CLIENT.receive_signal(self.__channel)
+            try:
+                self.__CLOUD_CLIENT.receive_signal(self.__channel)
+            except CloudConnectionError:
+                # TODO: Log Error during reception of signal from Cloud.
+                self.disconnect()
         else:
-            raise RuntimeError("Not a valid type of Cloud connector (It should be SEND or RECEIVE)")
+            raise CloudConnectionError("Not a valid type of Cloud connector (It should be SEND or RECEIVE)")
 
     def is_published(self):
         # return self._CLOUD_CLIENT._pub_result

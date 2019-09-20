@@ -76,7 +76,7 @@ class SignalFileHandler:
             .
             .
         @param file: Database file (.h5 or similar) instance where all signals are saved.
-        @param signal_group: Group name (String)
+        @param group: Group name (String)
         @return: Signal Table child of signal_group
         """
 

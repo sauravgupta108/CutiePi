@@ -32,7 +32,7 @@ class OutputSignalQueueProcessor(Process):
                 ProcessHardwareSignal().process_signal(signal_from_queue[1])
 
             else:
-                # Log: Invalid signal came from queue
+                # TODO: Log invalid signal got from queue
                 pass
 
     def terminate(self):

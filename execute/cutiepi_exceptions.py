@@ -49,3 +49,14 @@ class EncryptionError(CutiePiError):
 class DecryptionError(CutiePiError):
     """Raised when any error occurred during decrypting signal."""
     pass
+
+
+class InvalidCloudSignal(CutiePiError):
+    """Raised when received cloud signal is invalid."""
+    pass
+
+
+class InvalidHardwareSignal(CutiePiError):
+    """Raised when received hardware signal is invalid"""
+    pass
+
