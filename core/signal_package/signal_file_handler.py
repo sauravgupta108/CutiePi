@@ -9,7 +9,7 @@ import tables as tb
 import time
 from os import environ as env, path
 
-from ... import name_helper as nh
+import name_helper as nh
 from . import CloudSignal, HardwareSignal
 
 

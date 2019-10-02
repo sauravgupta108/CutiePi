@@ -25,8 +25,8 @@ class CloudClient(Thread):
         """
         import inspect
         from paho.mqtt import client as mqtt
-        from .libraries import MqttClient
-        from .execute.cutiepi_exceptions import InvalidObjectCreation
+        from libraries import MqttClient
+        from execute.cutiepi_exceptions import InvalidObjectCreation
 
         '''
         Get class name of caller method
@@ -121,7 +121,7 @@ class CloudSignal:
         if not signal:
             raise ValueError("Invalid signal inputted.")
 
-        from .helper import encrypt_signal_for_cloud as encrypt
+        from helper import encrypt_signal_for_cloud as encrypt
         self.__cloud_client = CloudClient(name="Cloud_Tx", mode="SEND")
         self.__cloud_client.transmit(encrypt(signal))
 

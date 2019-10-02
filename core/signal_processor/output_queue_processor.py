@@ -9,7 +9,7 @@ sends for further processing.
 
 from multiprocessing import Process
 
-from ... import name_helper as nh
+import name_helper as nh
 
 
 class OutputSignalQueueProcessor(Process):

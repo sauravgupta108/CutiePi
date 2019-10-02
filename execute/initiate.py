@@ -9,13 +9,15 @@ import RPi.GPIO as GPIO
 from multiprocessing import Queue as que
 
 from .cutiepi_exceptions import *
-from ..monitor import LcdEngine
+from monitor import LcdEngine
+from env_settings import set_env_variables
 
 
 class Initiation:
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
+        set_env_variables()
 
         self.lcd = LcdEngine()
 
@@ -30,7 +32,7 @@ class Initiation:
         file_handler.create_file()
 
     def __initiate_monitor(self):
-        from ..monitor import SevenSegment, Led
+        from monitor import SevenSegment, Led
         svn_seg = SevenSegment()
         led = Led()
 
@@ -46,7 +48,7 @@ class Initiation:
         It starts a parallel process for recording signals received from cloud and hardware.
         :return: None
         """
-        from ..core import ReceivedSignalsLogger
+        from core import ReceivedSignalsLogger
         signal_recorder = ReceivedSignalsLogger(self.__cloud_signal_receiver_queue,
                                                 self.__hardware_signal_receiver_queue,
                                                 self.__signals_to_process_queue)
@@ -57,7 +59,7 @@ class Initiation:
         It starts a thread to receive signals from cloud.
         :return: None
         """
-        from ..cloud_engine import CloudSignal
+        from cloud_engine import CloudSignal
         cloud_signal_thread = CloudSignal()
         cloud_signal_thread.start_reception(self.__cloud_signal_receiver_queue)
 
@@ -66,7 +68,7 @@ class Initiation:
         It starts a thread to receive signals from hardware via bluetooth.
         :return: None
         """
-        from ..hw_controller import HardwareSignal
+        from hw_controller import HardwareSignal
         hardware_signal_thread = HardwareSignal()
         hardware_signal_thread.start_reception(self.__hardware_signal_receiver_queue)
 
@@ -75,7 +77,7 @@ class Initiation:
         It starts parallel process to process signals in "signals_to_process_queue"
         :return: None
         """
-        from ..core.signal_processor import OutputSignalQueueProcessor
+        from core.signal_processor import OutputSignalQueueProcessor
         signal_processor = OutputSignalQueueProcessor(self.__signals_to_process_queue)
         signal_processor.start()
 

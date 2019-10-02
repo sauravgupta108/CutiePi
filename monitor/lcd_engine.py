@@ -11,7 +11,7 @@ import time
 
 import RPi.GPIO as GPIO
 
-from ..execute.cutiepi_exceptions import MonitorOperationError
+from execute.cutiepi_exceptions import MonitorOperationError
 
 
 class LcdEngine:

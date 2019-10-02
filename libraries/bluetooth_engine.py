@@ -9,7 +9,7 @@ from os import environ as env
 from time import sleep
 import bluetooth as bt
 
-from .. import name_helper as nh
+import name_helper as nh
 
 
 class BluetoothClient:

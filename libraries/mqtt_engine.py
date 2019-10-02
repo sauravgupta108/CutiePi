@@ -9,7 +9,7 @@ This module provides a way to publish and subscribe messages using MQTT protocol
 import time
 import os
 
-from ..execute.cutiepi_exceptions import CloudConnectionError
+from execute.cutiepi_exceptions import CloudConnectionError
 
 
 class MqttClient:
