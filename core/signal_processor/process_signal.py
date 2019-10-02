@@ -43,10 +43,13 @@ class ProcessCloudSignal:
 
     @staticmethod
     def _is_valid_signal(signal):
-        signal_parts = signal.split("/")
-        if signal_parts[0] == env["CLOUD_SOURCE"] and len(signal_parts) == nh.CLOUD_SIGNAL_NO_OF_PARTS:
-            return True, signal_parts
-        return False, None
+        try:
+            signal_parts = signal.split("/")
+            if signal_parts[0] == env["CLOUD_SOURCE"] and len(signal_parts) == nh.CLOUD_SIGNAL_NO_OF_PARTS:
+                return True, signal_parts
+            return False, None
+        except AttributeError:
+            return False, None
 
 
 class ProcessHardwareSignal:
@@ -83,10 +86,13 @@ class ProcessHardwareSignal:
 
     @staticmethod
     def _is_valid(signal):
-        signal_parts = signal.split("&")
-        if signal_parts[0] == env["HARDWARE_SOURCE"] and len(signal_parts[1]) == nh.HARDWARE_SIGNAL_LENGTH:
-            return True, signal_parts
-        return False, None
+        try:
+            signal_parts = signal.split("&")
+            if signal_parts[0] == env["HARDWARE_SOURCE"] and len(signal_parts[1]) == nh.HARDWARE_SIGNAL_LENGTH:
+                return True, signal_parts
+            return False, None
+        except AttributeError:
+            return False, None
 
 
 class _SignalConversion:

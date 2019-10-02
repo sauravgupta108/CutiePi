@@ -40,4 +40,4 @@ ON = "on"
 OFF = "off"
 
 BLUETOOTH_SIGNAL_LIMIT = 100
-BLUETOOTH_SIGNAL_WAIT_TIME = 0.1  # in seconds
+BLUETOOTH_SIGNAL_WAIT_TIME = 1  # in seconds

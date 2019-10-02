@@ -19,7 +19,6 @@ class SignalFileHandler:
 
     @staticmethod
     def create_file():
-        print(path.join(env["HOME_DIR"] + nh.SIGNAL_FILE), "/////")
         with tb.open_file(path.join(env["HOME_DIR"], nh.SIGNAL_FILE), "w", nh.SIGNAL_FILE_TITLE) as signals_file:
 
             cloud_group = signals_file.create_group(signals_file.root,
@@ -37,7 +36,6 @@ class SignalFileHandler:
                                                    nh.HARDWARE_SIGNAL_TABLE_NAME,
                                                    HardwareSignal,
                                                    nh.HARDWARE_SIGNAL_TABLE_TITLE)
-            print("OK.....")
 
     def save_cloud_signal(self, file, name=0, message="", protocol="mqtt", source_type="MQTT Broker"):
         cloud_signals = self._get_signal_table(file, nh.CLOUD_SIGNAL_GROUP_NAME)
