@@ -9,7 +9,7 @@ MQTT broker.
 
 from threading import Thread
 
-from execute.cutiepi_exceptions import CloudConnectionError
+from .execute.cutiepi_exceptions import CloudConnectionError
 
 
 class CloudClient(Thread):
@@ -25,8 +25,8 @@ class CloudClient(Thread):
         """
         import inspect
         from paho.mqtt import client as mqtt
-        from libraries.mqtt_engine import MqttClient
-        from execute.cutiepi_exceptions import InvalidObjectCreation
+        from .libraries.mqtt_engine import MqttClient
+        from .execute.cutiepi_exceptions import InvalidObjectCreation
 
         '''
         Get class name of caller method

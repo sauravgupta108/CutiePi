@@ -8,7 +8,7 @@ Helper Module. Main functionality includes encrypting/decrypting messages for MQ
 from cryptography.fernet import Fernet
 from os import environ as env
 
-from execute import EncryptionError, DecryptionError
+from .execute import EncryptionError, DecryptionError
 
 
 # Encrypt the Signal to transmit to cloud

@@ -7,11 +7,11 @@ This module provides functionality to process cloud signals, change to hardware 
 
 from os import environ as env
 
-from helper import decrypt_signal_from_cloud as decrypt, decode_hardware_signal as decode
-from execute.cutiepi_exceptions import InvalidCloudSignal, DecryptionError
-from execute.cutiepi_exceptions import InvalidHardwareSignal, CloudConnectionError
-import name_helper as nh
-import message_conversion_helper as msg_hlp
+from ...helper import decrypt_signal_from_cloud as decrypt, decode_hardware_signal as decode
+from ...execute.cutiepi_exceptions import InvalidCloudSignal, DecryptionError
+from ...execute.cutiepi_exceptions import InvalidHardwareSignal, CloudConnectionError
+from ... import name_helper as nh
+from ... import message_conversion_helper as msg_hlp
 
 
 class ProcessCloudSignal:
@@ -60,7 +60,7 @@ class ProcessHardwareSignal:
         :param signal: dict type
         :return: None
         """
-        from cloud_engine import CloudSignal
+        from ...cloud_engine import CloudSignal
 
         try:
             decoded_signal = decode(signal["message"])

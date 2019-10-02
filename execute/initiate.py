@@ -10,8 +10,8 @@ from os import environ as env
 from multiprocessing import Queue as que
 
 from .cutiepi_exceptions import *
-from monitor import LcdEngine
-import name_helper as nh
+from ..monitor import LcdEngine
+from .. import name_helper as nh
 
 
 class Initiation:
@@ -26,12 +26,12 @@ class Initiation:
         self.__signals_to_process_queue = que()
 
         # Signal file create.
-        from core.signal_package import SignalFileHandler
+        from ..core.signal_package import SignalFileHandler
         file_handler = SignalFileHandler()
         file_handler.create_file()
 
     def __initiate_monitor(self):
-        from monitor import SevenSegment, Led
+        from ..monitor import SevenSegment, Led
         svn_seg = SevenSegment()
         led = Led()
 
@@ -47,7 +47,7 @@ class Initiation:
         It starts a parallel process for recording signals received from cloud and hardware.
         :return: None
         """
-        from core import ReceivedSignalsLogger
+        from ..core import ReceivedSignalsLogger
         signal_recorder = ReceivedSignalsLogger(self.__cloud_signal_receiver_queue,
                                                 self.__hardware_signal_receiver_queue,
                                                 self.__signals_to_process_queue)
@@ -58,7 +58,7 @@ class Initiation:
         It starts a thread to receive signals from cloud.
         :return: None
         """
-        from cloud_engine import CloudSignal
+        from ..cloud_engine import CloudSignal
         cloud_signal_thread = CloudSignal()
         cloud_signal_thread.start_reception(self.__cloud_signal_receiver_queue)
 
@@ -70,7 +70,7 @@ class Initiation:
         It starts parallel process to process signals in "signals_to_process_queue"
         :return: None
         """
-        from core.signal_processor import OutputSignalQueueProcessor
+        from ..core.signal_processor import OutputSignalQueueProcessor
         signal_processor = OutputSignalQueueProcessor(self.__signals_to_process_queue)
         signal_processor.start()
 

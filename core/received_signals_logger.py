@@ -12,7 +12,7 @@ from multiprocessing import Process, Queue
 import tables as tb
 from os import environ as env, path
 
-import name_helper as nh
+from .. import name_helper as nh
 
 
 class ReceivedSignalsLogger(Process):
