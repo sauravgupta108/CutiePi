@@ -3,3 +3,7 @@
 """
 This gives the power to send or receive radio signals at 433 Mhz.
 """
+
+
+class RadioSignalClient:
+    pass

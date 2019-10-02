@@ -17,7 +17,7 @@ from .. import name_helper as nh
 
 class ReceivedSignalsLogger(Process):
     def __init__(self, from_cloud_queue, from_hardware_queue, to_process_queue):
-        self._file = path.join(env["HOME"], nh.SIGNAL_FILE)
+        self._file = path.join(env["HOME_DIR"], nh.SIGNAL_FILE)
         self._from_cloud_queue = from_cloud_queue
         self._from_hardware_queue = from_hardware_queue
         self._to_process_queue = to_process_queue

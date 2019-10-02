@@ -8,10 +8,15 @@ For example:
 """
 
 import logging
-import os
-import json
 
-from code import env_settings
+
+from ..env_settings import set_env_variables
+from . import Initiation
 
 if __name__ == "__main__":
-    print("hello")
+    print("Hello..! Let's get started.")
+    set_env_variables()  # It sets environment variables
+    Initiation().initiate()  # Initiate different parts of system.
+
+    while True:
+        pass

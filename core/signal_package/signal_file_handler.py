@@ -19,7 +19,7 @@ class SignalFileHandler:
 
     @staticmethod
     def create_file():
-        with tb.open_file(path.join(env["HOME"] + nh.SIGNAL_FILE), "w", nh.SIGNAL_FILE_TITLE) as signals_file:
+        with tb.open_file(path.join(env["HOME_DIR"] + nh.SIGNAL_FILE), "w", nh.SIGNAL_FILE_TITLE) as signals_file:
 
             cloud_group = signals_file.create_group(signals_file.root,
                                                     nh.CLOUD_SIGNAL_GROUP_NAME,

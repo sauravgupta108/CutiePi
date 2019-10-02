@@ -6,12 +6,10 @@ This file initiate different parts.
 """
 
 import RPi.GPIO as GPIO
-from os import environ as env
 from multiprocessing import Queue as que
 
 from .cutiepi_exceptions import *
 from ..monitor import LcdEngine
-from .. import name_helper as nh
 
 
 class Initiation:
@@ -21,6 +19,7 @@ class Initiation:
 
         self.lcd = LcdEngine()
 
+        # Set queues for different sections.
         self.__cloud_signal_receiver_queue = que()
         self.__hardware_signal_receiver_queue = que()
         self.__signals_to_process_queue = que()
@@ -63,7 +62,13 @@ class Initiation:
         cloud_signal_thread.start_reception(self.__cloud_signal_receiver_queue)
 
     def __start_hardware_listener(self):
-        pass
+        """
+        It starts a thread to receive signals from hardware via bluetooth.
+        :return: None
+        """
+        from ..hw_controller import HardwareSignal
+        hardware_signal_thread = HardwareSignal()
+        hardware_signal_thread.start_reception(self.__hardware_signal_receiver_queue)
 
     def __start_signal_processor(self):
         """
@@ -75,7 +80,8 @@ class Initiation:
         signal_processor.start()
 
     def initiate(self):
-        self.__initiate_monitor()
+        # Order of calling methods matters.
+        self.__initiate_monitor()  # TODO: It could raise MonitorInitiationError. Need to handle
         self.__start_signal_recorder()
         self.__start_cloud_listener()
         self.__start_hardware_listener()

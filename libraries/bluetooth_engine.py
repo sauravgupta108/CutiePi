@@ -42,15 +42,33 @@ class BluetoothClient:
             # TODO: Log bluetooth connection error
             return False
 
+    @staticmethod
+    def _is_valid_signal_received(signal):
+        """
+        It validates signal received from hardware via Bluetooth.
+        :param signal: signal received from hardware.
+        :return: True or False
+        """
+        try:
+            return len(signal.decode()) == nh.HARDWARE_SIGNAL_LENGTH
+        except AttributeError:
+            return len(signal) == nh.HARDWARE_SIGNAL_LENGTH
+
     def receive_signal(self):
         if self._connect_to_hardware():
             while True:
                 try:
                     signal_received = self.bt_sock.recv(nh.BLUETOOTH_SIGNAL_LIMIT)
-                    self._put_signal_onto_queue(signal_received)
+                    self._put_signal_onto_queue(signal_received) if self._is_valid_signal_received(
+                        signal_received) else ""
                     sleep(nh.BLUETOOTH_SIGNAL_WAIT_TIME)
 
                 except bt.btcommon.BluetoothError:
                     # TODO: Log error while receiving signal over bluetooth
-                    pass
+                    self.terminate_connection()
+        else:
+            # TODO: Log error in attempting Bluetooth connection.
+            pass
 
+    def terminate_connection(self):
+        self.bt_sock.close()
