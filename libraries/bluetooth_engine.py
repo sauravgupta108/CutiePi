@@ -36,7 +36,7 @@ class BluetoothClient:
 
     def _connect_to_hardware(self):
         try:
-            self.bt_sock.conn((env["A_HC05_DEVICE_ID"], env["A_HC05_PORT"]))
+            self.bt_sock.connect((env["A_HC05_DEVICE_ID"], int(env["A_HC05_PORT"])))
             return True
         except bt.btcommon.BluetoothError:
             # TODO: Log bluetooth connection error

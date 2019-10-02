@@ -16,7 +16,7 @@ from execute.cutiepi_exceptions import MonitorOperationError
 
 class LcdEngine:
     def __init__(self):
-        with open(os.path.join(os.environ["CONFIG_DIR"], 'lcd_connections.json')) as lcd_conn:
+        with open(os.path.join(os.environ["CONFIG_DIR"], 'lcd_connection.json')) as lcd_conn:
             self.__pins = json.load(lcd_conn)
         for pin in self.__pins.keys():
             GPIO.setup(int(self.__pins[pin]), GPIO.OUT)

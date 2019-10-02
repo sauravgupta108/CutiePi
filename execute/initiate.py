@@ -10,14 +10,14 @@ from multiprocessing import Queue as que
 
 from .cutiepi_exceptions import *
 from monitor import LcdEngine
-from env_settings import set_env_variables
+import env_settings as ev
 
 
 class Initiation:
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
-        set_env_variables()
+        ev.set_env_variables()
 
         self.lcd = LcdEngine()
 
@@ -27,7 +27,7 @@ class Initiation:
         self.__signals_to_process_queue = que()
 
         # Signal file create.
-        from ..core.signal_package import SignalFileHandler
+        from core.signal_package import SignalFileHandler
         file_handler = SignalFileHandler()
         file_handler.create_file()
 

@@ -9,6 +9,7 @@ puts the messages (in distinguishable format) to signals_to_process_queue.
 """
 
 from multiprocessing import Process, Queue
+import queue as qq  # For using queue.Empty exception
 import tables as tb
 from os import environ as env, path
 
@@ -37,7 +38,7 @@ class ReceivedSignalsLogger(Process):
                                                      cloud_signal["source_type"]
                                                      )
                     self._to_process_queue.put((nh.CLOUD_SIGNAL_PREFIX, cloud_signal))
-                except Queue.Empty:
+                except qq.Empty:
                     pass
 
                 try:
@@ -49,7 +50,7 @@ class ReceivedSignalsLogger(Process):
                                                         hw_signal["source_type"]
                                                         )
                     self._to_process_queue.put((nh.HARDWARE_SIGNAL_PREFIX, hw_signal))
-                except Queue.Empty:
+                except qq.Empty:
                     pass
 
     def terminate(self):

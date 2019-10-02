@@ -22,7 +22,7 @@ class _HardwareClient(Thread):
 
     def run(self):
         if self._mode == "RECEIVE":
-            from .libraries import BluetoothClient
+            from libraries import BluetoothClient
             bt_client = BluetoothClient()
             bt_client.set_output_queue(self._output_queue)
             bt_client.receive_signal()

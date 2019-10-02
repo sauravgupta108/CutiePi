@@ -9,7 +9,7 @@ MQTT broker.
 
 from threading import Thread
 
-from .execute.cutiepi_exceptions import CloudConnectionError
+from execute.cutiepi_exceptions import CloudConnectionError
 
 
 class CloudClient(Thread):
