@@ -25,9 +25,12 @@ class ProcessCloudSignal:
         :return: None
         """
         try:
+            from hw_controller import HardwareSignal
             decrypted_signal = decrypt(signal["message"])
             formatted_signal_for_hardware = self.__create_signal_for_hw(decrypted_signal)
-            # TODO: transmit new signal to hardware.
+
+            # Transmit signal to hardware
+            HardwareSignal().transmit(formatted_signal_for_hardware)
         except DecryptionError:
             # TODO: Log error while decrypting signal received from cloud.
             pass
@@ -144,12 +147,12 @@ class _SignalConversion:
             raise InvalidCloudSignal("Invalid Entity id or group")
         else:
             entity_id = str(all_or_id_part).zfill(msg_hlp.ENTITY_ID_PADDING)
-            all_or_id = str(0) if all_or_id_part == 0 else str(1)
+            all_or_id = "0" if all_or_id_part == 0 else "1"
 
         if cloud_signal_parts[4] not in [nh.ON, nh.OFF]:
             raise InvalidCloudSignal("Invalid action value received.")
         else:
-            action = 1 if cloud_signal_parts[4] == nh.ON else 0
+            action = "1" if cloud_signal_parts[4] == nh.ON else "0"
 
         return "%s%s%s%s%s" % (zone, str(entity_no), all_or_id, entity_id, action)
 

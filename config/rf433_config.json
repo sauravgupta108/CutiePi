@@ -1,0 +1,5 @@
+{
+    "tx_pin": "11",
+    "rx_pin": "13",
+    "_comment": "Change pin numbers"
+}
